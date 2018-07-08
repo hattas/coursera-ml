@@ -1,6 +1,5 @@
 function submitWithConfiguration(conf)
-  addpath('./lib/jsonlab');
-
+  
   parts = parts(conf);
 
   fprintf('== Submitting solutions | %s...\n', conf.itemName);
