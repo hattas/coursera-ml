@@ -36,14 +36,14 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+% compute cost and gradient without regularization
+h = sigmoid(X*theta);
+J = -1/m * (y'*log(h) + (1 - y)'*log(1 - h));
+grad = 1/m * X'*(h - y);
 
-
-
-
-
-
-
-
+% add regularization
+J = J + lambda/(2*m) * theta(2:end)'*theta(2:end);
+grad(2:end) = grad(2:end) + lambda/m*theta(2:end);
 
 % =============================================================
 
