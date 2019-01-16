@@ -127,7 +127,7 @@ function response = getResponse(url, body)
     % urlread didn't work, try curl & the peer certificate patch
     if ispc
       % testing note: use 'jsonBody =' for a test case
-      json_command = sprintf('echo jsonBody=%s | curl -k -X POST -d @- %s', body, url);
+      json_command = sprintf('echo jsonBody=%s | curl -s -k -X POST -d @- %s', body, url);
     else
       % it's linux/OS X, so use the other form
       json_command = sprintf('echo ''jsonBody=%s'' | curl -k -X POST -d @- %s', body, url);
