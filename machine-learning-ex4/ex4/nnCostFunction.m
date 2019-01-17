@@ -62,23 +62,55 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% forward propagation
+a1 = [ones(size(X, 1), 1), X]';
+z2 = Theta1*a1;
+a2 = sigmoid(z2);
+a2 = [ones(1, size(a2, 2)); a2];
+z3 = Theta2*a2;
+a3 = sigmoid(z3);
+h = a3;
 
+y_onehot = zeros(num_labels, size(y,1));
+for i=1:size(y,1)
+    y_onehot(y(i), i) = 1;
+end
+y = y_onehot;
 
+% unvectorized version of cost function
+% for i=1:m
+%     for k=1:num_labels
+%         J = J - y(k,i)*log(h(k,i)) - (1-y(k,i))*log(1-h(k,i));
+%     end
+% end
+% J = J/m;
 
+% vectorized version of cost function
+J = sum(sum(-y.*log(h) - (1-y).*log(1-h))) / m;
 
+J = J + lambda/2/m*(sum(sum(Theta1(:, 2:end).^2)) + ...
+    sum(sum(Theta2(:, 2:end).^2)));
 
+% backpropogation
+for t = 1:m
+    % step 2
+    delta_3 = a3(:,t) - y(:,t);
+    
+    % step 3
+    delta_2 = Theta2(:,2:end)' * delta_3 .* sigmoidGradient(z2(:,t));
+    
+    % step 4
+    Theta1_grad = Theta1_grad + delta_2 * a1(:,t)';
+    Theta2_grad = Theta2_grad + delta_3 * a2(:,t)';
+end
 
+% step 5
+Theta1_grad = Theta1_grad / m;
+Theta2_grad = Theta2_grad / m;
 
-
-
-
-
-
-
-
-
-
-
+% regularization
+Theta1_grad(:,2:end) = Theta1_grad(:,2:end) + lambda/m*Theta1(:,2:end);
+Theta2_grad(:,2:end) = Theta2_grad(:,2:end) + lambda/m*Theta2(:,2:end);
 
 % -------------------------------------------------------------
 

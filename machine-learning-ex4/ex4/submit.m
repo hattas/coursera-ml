@@ -1,5 +1,4 @@
 function submit()
-  addpath('./lib');
 
   conf.assignmentSlug = 'neural-network-learning';
   conf.itemName = 'Neural Networks Learning';
