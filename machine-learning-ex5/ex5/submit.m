@@ -1,5 +1,4 @@
 function submit()
-  addpath('./lib');
 
   conf.assignmentSlug = 'regularized-linear-regression-and-bias-variance';
   conf.itemName = 'Regularized Linear Regression and Bias/Variance';
