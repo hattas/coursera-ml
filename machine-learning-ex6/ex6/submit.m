@@ -1,5 +1,4 @@
 function submit()
-  addpath('./lib');
 
   conf.assignmentSlug = 'support-vector-machines';
   conf.itemName = 'Support Vector Machines';
