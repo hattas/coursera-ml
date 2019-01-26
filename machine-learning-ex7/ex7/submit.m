@@ -1,5 +1,4 @@
 function submit()
-  addpath('./lib');
 
   conf.assignmentSlug = 'k-means-clustering-and-pca';
   conf.itemName = 'K-Means Clustering and PCA';
