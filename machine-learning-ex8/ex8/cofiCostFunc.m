@@ -40,20 +40,32 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+pred = (X*Theta' - Y) .* R;
+J = 1/2 * pred(:)'*pred(:);
+J = J + lambda/2 * (Theta(:)'*Theta(:) + X(:)'*X(:)); % regularization
+
+% unvectorized gradient
+% for i = 1:num_movies
+%     for j = 1:num_users
+%         X_grad(i,:) = X_grad(i,:) + pred(i,j) * Theta(j,:);
+%         Theta_grad(j,:) = Theta_grad(j,:) + pred(i,j) * X(i,:);
+%     end
+% end
 
 
+% vectorized gradient
+% for i = 1:num_movies
+%     X_grad(i,:) = pred(i,:) * Theta;
+% end
+% 
+% for j = 1:num_users
+%     Theta_grad(j,:) = pred(:,j)' * X;
+% end
 
 
-
-
-
-
-
-
-
-
-
-
+% better vectorized gradient
+X_grad = pred * Theta + lambda*X;
+Theta_grad = pred' * X + lambda*Theta;
 
 % =============================================================
 
